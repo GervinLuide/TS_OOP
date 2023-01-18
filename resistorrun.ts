@@ -1,52 +1,17 @@
-class Resistor {
-    r: number = 0;
-    constructor(r: number) {
-        this.r = r;
-    }
-    getCurrent(u: number): number {
-        return u / this.r;
-    }
-    getPower(u: number): number {
-        return u * this.getCurrent(u);
-    }
-    getResistance(): number {
-        return this.r;
-    }
+let resistors:number[]=[110, 220, 220];
+let inversesum:number=0;
+for(let resistance of resistors){
+    inversesum+=1/resistance;
 }
-
-class SeriesCircuit {
-    resistors: Resistor[] = []
-    push(r: Resistor) {
-        this.resistors.push(r);
-    }
-    getTotalResistance() {
-        let sum: number = 0;
-        this.resistors.forEach((r: Resistor) => { sum += r.getResistance() });
-        return sum;
-    }
-    getPower(u:number){
-       return u * this.getCurrent(u)
-    }
-
-    getCurrent(u: number) {
-        return u / this.getTotalResistance();
-    }
-    getallPower(u: number){
-        let power: any = []
-        this.resistors.forEach((r: Resistor) => {
-            power.push(r.getPower(u))
-        })
-        return power
-    }
-
-}
-
-let sc1: SeriesCircuit = new SeriesCircuit();
-sc1.push(new Resistor(220));
-sc1.push(new Resistor(220));
-sc1.push(new Resistor(220));
-console.log(sc1.getTotalResistance());
-console.log(sc1.getCurrent(12));
-console.log(sc1.getPower(12));
-console.log(sc1.getallPower(12))
-
+let amps = 0.5
+let totalResistance = 1 / inversesum;
+let voltage = 4.5;
+let current = 1;
+let power = voltage * current;
+let ohms = voltage / amps;
+console.log("Power: " + power + " watts, Resistance: " + totalResistance + " ohms");
+let secondtotalResistance = 0.5 / inversesum;
+let secondcurrent = 0.5;
+let secondPower = voltage * secondcurrent;
+console.log("Secondary Power(tagatuli): " + secondPower + " watts, Secondary Resistance: " + secondtotalResistance + " ohms");
+console.log(ohms)
